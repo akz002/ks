@@ -22,6 +22,8 @@ var noble = require('noble');
 //replace localhost with your server's IP;
 var socket = require('socket.io-client')('http://192.168.123.121:3000/scanner');
 
+var sleep = require('sleep');
+
 //replace with your hardware address
 //var addressToTrack = 'ee443390fa9d'; // estimote
 //var addressToTrack = 'a4d856039ebf'; // gimbal
@@ -31,15 +33,17 @@ socket.on('connect', function(){
 });
  
 noble.on('discover', function(peripheral){
-  for (var i = 0; i < BTDevices.length; i++) {
-    if(peripheral.uuid == BTDevices[i]){
-      console.log('deviceData-kevin', {mac: peripheral.uuid, rssi:peripheral.rssi});
+//  for (var i = 0; i < BTDevices.length; i++) {
+    if(peripheral.uuid == BTDevices[1]){
+//      console.log('deviceData-kevin', {mac: peripheral.uuid, rssi:peripheral.rssi});
 //      socket.emit('deviceData', {mac: peripheral.uuid, rssi:peripheral.rssi});
-      socket.emit('uuid', peripheral.uuid);
-      socket.emit('rssi', peripheral.rssi);
-      console.log('distance is: ', calculateDistance(peripheral.rssi));
+//      socket.emit('uuid', peripheral.uuid);
+      socket.emit('rssi', "1 " + peripheral.rssi);
+      sleep.sleep(1);
+
+//      console.log('distance is: ', calculateDistance(peripheral.rssi));
     }
-  }
+//  }
 });
  
 noble.startScanning([], true) //allows dubplicates while scanning
