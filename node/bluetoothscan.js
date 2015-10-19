@@ -1,3 +1,16 @@
+// npm install -g getmac
+ 
+// Fetch the computer's mac address 
+var macAddress;
+ 
+require('getmac').getMac(function(err,macAddress){
+    if (err)  throw err
+    console.log(macAddress)
+})
+ 
+//console.log(macAddress)
+
+
 function calculateDistance(rssi) {
   var txPower = -59 //hard coded power value. Usually ranges between -59 to -65
   
@@ -38,7 +51,7 @@ noble.on('discover', function(peripheral){
 //      console.log('deviceData-kevin', {mac: peripheral.uuid, rssi:peripheral.rssi});
 //      socket.emit('deviceData', {mac: peripheral.uuid, rssi:peripheral.rssi});
 //      socket.emit('uuid', peripheral.uuid);
-      socket.emit('rssi', "1 " + peripheral.rssi);
+      socket.emit('rssi', "111 " + peripheral.rssi);
       sleep.sleep(1);
 
 //      console.log('distance is: ', calculateDistance(peripheral.rssi));
