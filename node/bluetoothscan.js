@@ -48,7 +48,7 @@ socket.on('connect', function(){
 noble.on('discover', function(peripheral){
 //  for (var i = 0; i < BTDevices.length; i++) {
     if(peripheral.uuid == BTDevices[1]){
-//      console.log('deviceData-kevin', {mac: peripheral.uuid, rssi:peripheral.rssi});
+      console.log('deviceData-kevin', {mac: peripheral.uuid, rssi:peripheral.rssi});
 //      socket.emit('deviceData', {mac: peripheral.uuid, rssi:peripheral.rssi});
 //      socket.emit('uuid', peripheral.uuid);
       socket.emit('rssi', "111 " + peripheral.rssi);
@@ -58,5 +58,11 @@ noble.on('discover', function(peripheral){
     }
 //  }
 });
- 
-noble.startScanning([], true) //allows dubplicates while scanning
+
+
+noble.on('stateChange', function(state) {
+  if (state === 'poweredOn')
+    noble.startScanning([], true) //allows dubplicates while scanning
+  else
+    noble.stopScanning();
+});
